@@ -77,12 +77,19 @@ public class LineHandler {
 	private boolean verify(Proccess proccess,String line) {
 		int verify = proccess.verify(line);
 		if(verify > -1) {			
-			int index = line.lastIndexOf(".");
-			if(index > -1) {
+			if(fileSuffixReg(line)) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
+	private boolean fileSuffixReg(String line) {
+		int index = line.lastIndexOf(".");
+		if(index > -1) {
+			String subLine = line.substring(index+1);
+			return subLine.matches("^[A-Za-z]+$");
+		}
+		return false;
+	}
 }

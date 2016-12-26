@@ -18,19 +18,23 @@ import com.plugin.shell.ShellClientImpl;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		File file = new File("G:/jenkins and svn/test/changeLog.txt"); //日志存放目录
+		if(args== null || args.length < 3) {
+			System.out.println("参数：first--the svn changeLog file");
+			System.out.println("参数：seccond--compile web class project path");
+			System.out.println("参数：third--plugin store path");
+			return;
+		}
+		File file = new File(args[0]); //日志存放目录
 		ChangeLogReader changeLogReader = new ChangeLogReader(file);		
 		changeLogReader.addProccess(new JavaFileProccess())
 			.addProccess(new StaticFileProccess())
-			.addProccess(new ResourceFileProccess());
+			.addProccess(new ResourceFileProccess());		
 		ShellClient shellClient = new ShellClientImpl();
 		/*第一个参数：编译好的工程的目录，第二个参数：补丁包存放的目录*/
-		PluginImpl plugin = new PluginImpl("G:/jenkins and svn/test/incre_demo-0.0.2", "G:/jenkins and svn/test/plugins");
+		PluginImpl plugin = new PluginImpl(args[1],args[2]);
 		plugin.setLogReader(changeLogReader);
 		plugin.setShellClient(shellClient);
-		plugin.generate();
-		System.out.println(changeLogReader.getLineHandler().getDelFiles());
-		System.out.println(changeLogReader.getLineHandler().getModFiles());		
+		plugin.generate();		
 	}
 	
 }
