@@ -18,6 +18,10 @@ import com.plugin.shell.ShellClientImpl;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
+//		args = new String[3];
+//		args[0] = "G:/jenkins_svn/test/changeLog.txt";
+//		args[1] = "G:/jenkins_svn/test/ciq_admin";
+//		args[2] = "G:/jenkins_svn/test/plugins";
 		if(args== null || args.length < 3) {
 			System.out.println("参数：first--the svn changeLog file");
 			System.out.println("参数：seccond--compile web class project path");

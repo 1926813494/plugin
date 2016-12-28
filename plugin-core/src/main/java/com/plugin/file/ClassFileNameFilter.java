@@ -14,11 +14,15 @@ public class ClassFileNameFilter implements FilenameFilter {
 
 	@Override
 	public boolean accept(File dir, String name) {
+		System.out.println(name);
 		if(name != null) {
-			String noSuffixName = name.substring(0,name.lastIndexOf(".class"));
-			if(noSuffixName.equals(className)
-					|| noSuffixName.contains(className+"$")) {
-				return true;
+			int classIndex = name.lastIndexOf(".class");
+			if(classIndex > -1) {				
+				String noSuffixName = name.substring(0,classIndex);
+				if(noSuffixName.equals(className)
+						|| noSuffixName.contains(className+"$")) {
+					return true;
+				}
 			}
 		}
 		return false;
